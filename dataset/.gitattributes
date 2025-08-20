@@ -1,0 +1,4 @@
+*.CNCD.jsonl filter=lfs diff=lfs merge=lfs -text
+test/CNCD.jsonl filter=lfs diff=lfs merge=lfs -text
+train/CNCD.jsonl filter=lfs diff=lfs merge=lfs -text
+valid/CNCD.jsonl filter=lfs diff=lfs merge=lfs -text

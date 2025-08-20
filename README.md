@@ -6,15 +6,20 @@ Chinese News Contradiction Dataset
 
 CNCD is a dataset designed for detecting contradictions in news articles. The data is located in the "dataset" directory. The label distribution is shown in the following table:
 
-<style>
-</style>
-
 | **Label Type**                                           | **Train** | **Valid** | **Test** | **Total** |
 | -------------------------------------------------------- | --------- | --------- | -------- | --------- |
 | **Denial Reports**                                       | 534       | 270       | 1153     | 1957      |
 | **Denial Reports with corresponding Denied<br> Reports** | 182       | 96        | 322      | 600       |
 | **Denied Reports**                                       | 204       | 162       | 434      | 800       |
 | **Conflicting Report Pairs**                             | 835       | 1280      | 2907     | 5022      |
+
+The file CNCD.jsonl is the raw news data.
+
+The file "CNCD.jsonl.task1.positive" marks Denial Reports.
+
+The file "CNCD.jsonl.task2.CRP" marks Conflicting Report Pairs.
+
+
 
 ## Baseline Method Description
 
