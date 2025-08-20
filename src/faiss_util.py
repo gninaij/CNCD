@@ -5,7 +5,7 @@ import pickle
 import numpy as np
 
 import text_util
-import log_uti
+import log_util
 logger = log_util.getLogger(__name__)
 
 
@@ -106,7 +106,7 @@ def test_search():
     conf['data_file'] = '../model/news.pickle'
     conf['emb_model'] = emb_model
     faiss_worker = faissWorker(conf)
-    with open('../dataset/CNCD.jsonl', encoding='utf8') as fp:
+    with open('../dataset/test/CNCD.jsonl', encoding='utf8') as fp:
         for lid, line in enumerate(fp):
             line = line.strip()
             id, pub_time, title, content = line.split('\t')
@@ -124,8 +124,7 @@ def add_data2es_txt():
     conf['data_file'] = '../model/news.pickle'
     conf['emb_model'] = emb_model
     faiss_worker = faissWorker(conf)
-    p_endl = re.compile('#&#')
-    input_file = '../dataset/CNCD.jsonl'
+    input_file = '../dataset/test/CNCD.jsonl'
     datas = []
     with open(input_file, encoding='utf8') as fp:
         for line in fp:
@@ -134,7 +133,6 @@ def add_data2es_txt():
             nid = news['id']
             if nid in old_ids:
                 continue
-            news['content'] = p_endl.sub('\n', news['content'])
             datas.append(news)
     faiss_worker.add_news(datas)
     print(f'insert {len(datas)}')

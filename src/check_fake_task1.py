@@ -18,7 +18,8 @@ negtive_pattern = re.compile(r'辟谣|澄清|网传|疯传|谣言|虚假报道|�
 non_neg_pattern = re.compile(r'互联网传[统播媒]|网传[播媒]|河道澄清剂')
 p_split_answer = re.compile('[。\n\r]+')
 
-log_util.debug(__name__, True)
+#  disable debug log
+log_util.debug(__name__, False)
 
 class Worker():
     def __init__(self, parameter):
@@ -86,12 +87,11 @@ class Worker():
         return True
 
 
-def run():
+def run(sub_set='test'):
+    # sub_set:'test', 'train', 'valid'
     p_tit = re.compile('\W')
-    news_file = '../dataset/CNCD.jsonl'
-    sta_date = '2023-03-01'
-    end_date = '2023-05-31'
-    out_file = news_file + '.task1.' + sta_date + '-' + end_date
+    news_file = f'../dataset/{sub_set}/CNCD.jsonl'
+    out_file = f'{news_file}.task1.pred'
     ofile = open(out_file, 'w', encoding='utf8')
     tit_set = set()
 
@@ -99,21 +99,13 @@ def run():
     conf['data_path'] = '../model'
     conf['emb_model_path'] = '../model/BAAI/bge-base-zh-v1.5'
     checker = Worker(json.dumps(conf))
-    skip = True
+
     with open(news_file, encoding='utf8') as fp:
         for lid, line in enumerate(fp):
             if lid % 1000 == 0:
                 logger.info(f'line {lid} done')
             line = line.strip()
             news = json.loads(line)
-            id = news['id']
-            title = news['title']
-            content = news['content']
-            news['pubDate'] = news['date']
-            if news['date'] < sta_date:
-                continue
-            if news['date'] > end_date:
-                break
 
             res_json = checker.process(json.dumps(news, ensure_ascii=False))
             res_data = json.loads(res_json)
@@ -125,10 +117,10 @@ def run():
                 continue
             if not res_data['message'][0]:
                 continue
-            output = {'news':news, 'result':res_data['message']}
-            ofile.write(f'1\t{json.dumps(output, ensure_ascii=False)}\n')
+            #  output positive result
+            ofile.write(f'{json.dumps(news, ensure_ascii=False)}\n')
     ofile.close()
 
 
 if __name__ == '__main__':
-    run()
+    run(sub_set='test')

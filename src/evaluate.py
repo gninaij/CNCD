@@ -10,8 +10,15 @@
 """
 import json
 
-def eva_task1(result_file):
-    label_file = '../dataset/CNCD.jsonl.task1.positive'
+def eva_task1(result_file, sub_set='test'):
+    if sub_set == 'test':
+        label_file = '../dataset/test/CNCD.jsonl.task1.positive'
+    elif sub_set == 'train':
+        label_file = '../dataset/train/CNCD.jsonl.task1.positive'
+    elif sub_set == 'valid':
+        label_file = '../dataset/valid/CNCD.jsonl.task1.positive'
+    else:
+        print(f'sub_set is wrong, need "train", "valid" or "test", input parameter is {sub_set}')
     positive = set()
     with open(label_file) as fp:
         for line in fp:
@@ -36,8 +43,15 @@ def eva_task1(result_file):
     print(f'f1-score:{f1}')
 
 
-def eva_task2(result_file):
-    task2_label_file = '../dataset/CNCD.jsonl.task2.CRP'
+def eva_task2(result_file, sub_set='test'):
+    if sub_set == 'test':
+        task2_label_file = '../dataset/test/CNCD.jsonl.task2.CRP'
+    elif sub_set == 'train':
+        task2_label_file = '../dataset/train/CNCD.jsonl.task2.CRP'
+    elif sub_set == 'valid':
+        task2_label_file = '../dataset/valid/CNCD.jsonl.task2.CRP'
+    else:
+        print(f'sub_set is wrong, need "train", "valid" or "test", input parameter is {sub_set}')
     positive = set()
     with open(task2_label_file) as fp:
         for line in fp:
@@ -64,12 +78,12 @@ def eva_task2(result_file):
 
 if __name__ == '__main__':
     #  task1
-    result_file = '../dataset/CNCD.jsonl.task1.pred'
-    print(result_file)
-    eva_task1(result_file)
+    result_file = '../dataset/test/CNCD.jsonl.task1.pred'
+    print(f'test {result_file}')
+    eva_task1(result_file, 'test')
 
-    #  task2
-    result_file = '../dataset/CNCD.jsonl.task2.pred'
+    task2
+    result_file = '../dataset/test/CNCD.jsonl.task2.pred_llm'
     print(result_file)
-    eva_task2(result_file)
+    eva_task2(result_file, 'test')
 

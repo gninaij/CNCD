@@ -12,11 +12,14 @@ import log_util
 from es_util import esWorker
 from faiss_util import faissWorker
 
-logger = common_log.getLogger(__name__)
+logger = log_util.getLogger(__name__)
 
+negtive_pattern = re.compile(r'辟谣|澄清|网传|疯传|谣言|虚假报道|造谣|严重失实|[为系](?:错误解读|媒体误读|不实信息)|不属实|[：:]不实|(?:否认|回应)[\u4e00-\u9fa5]*(?:网传|传闻)')
+non_neg_pattern = re.compile(r'互联网传[统播媒]|网传[播媒]|河道澄清剂')
 p_split_answer = re.compile('[。\n\r]+')
 
-common_log.debug(__name__, True)
+#  disable debug log
+log_util.debug(__name__, False)
 
 class Worker():
     def __init__(self, parameter):
@@ -30,15 +33,15 @@ class Worker():
                                                       query_instruction_for_retrieval="为这个句子生成表示以用于检索相关文章：",
                                                       use_fp16=True)
         conf = {}
-        conf['db_file'] = '../model/index.pickle'
-        conf['data_file'] = '../model/news.pickle'
+        conf['db_file'] = os.path.join(data_path, 'index.pickle')
+        conf['data_file'] = os.path.join(data_path, 'news.pickle')
         conf['emb_model'] = self.emb_model
         self.faiss = faissWorker(conf)
 
 
     def process(self, parameter):
         """
-        input:{'title':title, 'content':content, 'time':'YYYY-mm-dd HH:MM:SS', 'id':id}
+        input:{'title':title, 'content':content, 'date':'YYYY-mm-dd', 'id':id}
         """
         try:
             results = self.process0(parameter)
@@ -114,6 +117,21 @@ class Worker():
                 logger.debug(str(news))
 
         return results
+
+
+    def pattern_match(self, title, content):
+        sents = text_util.get_sentence(content)
+        head_part = ''
+        head_sen = ''
+        if len(sents) > 1 and sents[0]:
+            head_sen = sents[0] + sents[1]
+            head_part = title + "。" + head_sen
+        else:
+            head_part = title
+        sub_head_part = non_neg_pattern.sub('@|@', head_part)
+        if not negtive_pattern.search(sub_head_part):
+            return False
+        return True
 
 
     def llm_get_neg(self, title, content):
@@ -226,13 +244,9 @@ class Worker():
             head = text_util.get_head(news['title'], news['content'])
             content_list.append(head)
         embeddings = self.emb_model.encode(content_list)
-        # print(embeddings.shape)
         target_vec = embeddings[:1]
         candidate_vecs = embeddings[1:]
-        # print(target_vec.shape)
-        # print(candidate_vecs.shape)
         sims = np.dot(target_vec, candidate_vecs.T)
-        # print(sims.shape)
         valid_news = []
         valid_sims = []
         for i in range(0, sims.shape[1]):
@@ -240,7 +254,6 @@ class Worker():
                 continue
             valid_news.append(candidate_news[i])
             valid_sims.append(sims[0][i])
-            # print(sims[0][i], candidate_news[i])
         return valid_news, valid_sims
 
 
@@ -286,32 +299,29 @@ class Worker():
         return True
 
 
-def run():
+def run(sub_set='test'):
+    # sub_set:'test', 'train', 'valid'
     p_tit = re.compile('\W')
-    task1_pos_file = '../dataset/CNCD.jsonl.task1.positive'
+    task1_pos_file = f'../dataset/{sub_set}/CNCD.jsonl.task1.positive'
+    if USE_ENT_FILTER and USE_SIM_FILTER:
+        out_file = f'../dataset/{sub_set}/CNCD.jsonl.task2.pred_ent_sim_llm'
+    elif USE_ENT_FILTER and not USE_SIM_FILTER:
+        out_file = f'../dataset/{sub_set}/CNCD.jsonl.task2.pred_ent_llm'
+    elif not USE_ENT_FILTER and USE_SIM_FILTER:
+        out_file = f'../dataset/{sub_set}/CNCD.jsonl.task2.pred_sim_llm'
+    else:
+        out_file = f'../dataset/{sub_set}/CNCD.jsonl.task2.pred_llm'
 
     conf = {}
     conf['data_path'] = '../model'
     conf['emb_model_path'] = '../model/BAAI/bge-base-zh-v1.5'
     checker = Worker(json.dumps(conf))
 
-    step = 400
-    # order:1-5
-    order = 5
-    out_file = 'CNCD.jsonl' + '.task2.pred_ent_sim_llm' + f'.{order}'
     ofile = open(out_file, 'w', encoding='utf8')
     with open(task1_pos_file) as fp:
         for lid, line in enumerate(fp):
-            if lid < step * (order-1):
-                continue
-            if lid >= step * order:
-                break
             line = line.strip()
             news = json.loads(line)
-            id = news['id']
-            title = news['title']
-            content = news['content']
-            news['pubDate'] = news['date']
 
             res_json = checker.process(json.dumps(news, ensure_ascii=False))
             res_data = json.loads(res_json)
@@ -323,15 +333,17 @@ def run():
                 continue
             if not res_data['message'][0]:
                 continue
-            output = (news['id'], res['id'])
-            #  output = {'label':1, 'news':news, 'result_news':res}
-            #  ofile.write(f'{json.dumps(output, ensure_ascii=False)}\n')
-            ofile.write(f'{str(output)}\n')
+            for res in res_data['message']:
+                output = (news['id'], res['id'])
+                ofile.write(f'{str(output)}\n')
+                print(f'{str(output)}')
             logger.info('------------------------------------------------------------------------')
     ofile.close()
 
 
 if __name__ == '__main__':
-    USE_ENT_FILTER = False
-    USE_SIM_FILTER = False
-    run()
+    #  whether use ENT FILTER
+    USE_ENT_FILTER = True
+    #  whether use SIM FILTER
+    USE_SIM_FILTER = True
+    run(sub_set='test')
