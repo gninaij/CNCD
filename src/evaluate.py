@@ -79,11 +79,11 @@ def eva_task2(result_file, sub_set='test'):
 if __name__ == '__main__':
     #  task1
     result_file = '../dataset/test/CNCD.jsonl.task1.pred'
-    print(f'test {result_file}')
+    print(f'task1 test {result_file}')
     eva_task1(result_file, 'test')
 
-    task2
+    #  task2
     result_file = '../dataset/test/CNCD.jsonl.task2.pred_llm'
-    print(result_file)
+    print(f'task2 test {result_file}')
     eva_task2(result_file, 'test')
 
