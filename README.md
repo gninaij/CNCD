@@ -4,14 +4,14 @@
 
 **Detecting Factual Contradictions in News Based on Large Language Models**
 
-[![DOI](https://zenodo.org/badge/DOI/ZENODO_DOI_HERE.svg)](https://zenodo.org/doi/ZENODO_DOI_HERE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22808609.svg)](https://doi.org/10.5281/zenodo.22808609)
 [![Dataset DOI](https://img.shields.io/badge/Data%20DOI-10.57760%2Fsciencedb.36026-blue)](https://doi.org/10.57760/sciencedb.36026)
 [![License: MIT](https://img.shields.io/badge/Code%20License-MIT-yellow.svg)](DATA_LICENSE.md)
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/Data%20License-CC%20BY--NC--SA%204.0-lightgrey.svg)](DATA_LICENSE.md)
 
 **Paper** ([English PDF](paper/paper_en.pdf) · [中文 PDF](paper/paper_cn.pdf)) ·
 **Dataset** ([ScienceDB](https://doi.org/10.57760/sciencedb.36026)) ·
-**Zenodo** ([DOI](https://zenodo.org/doi/ZENODO_DOI_HERE))
+**Zenodo** ([DOI](https://doi.org/10.5281/zenodo.22808609))
 
 </div>
 
@@ -220,7 +220,7 @@ If you use the code or the paper, please cite:
   year         = {2026},
   publisher    = {Zenodo},
   version      = {1.0.0},
-  doi          = {ZENODO_DOI_HERE},
+  doi          = {10.5281/zenodo.22808609},
   url          = {https://github.com/gninaij/CNCD}
 }
 

@@ -32,25 +32,20 @@ authors:
     given-names: "Shumeng"
     affiliation: "Hunan University of Information Technology"
 
-# ---------------------------------------------------------------------------
-# After Zenodo publishes your release, UNCOMMENT the two blocks below and fill
-# in the real DOI you received. Then commit again.
-# GitHub validates CITATION.cff - leaving a placeholder DOI may trigger a
-# warning, which is why these lines ship commented out.
-# ---------------------------------------------------------------------------
-# doi: 10.5281/zenodo.XXXXXXX
-#
-# preferred-citation:
-#   type: article
-#   title: "Detecting Factual Contradictions in News Based on Large Language Models"
-#   authors:
-#     - family-names: "Jia"
-#       given-names: "Ning"
-#     - family-names: "Wei"
-#       given-names: "Zifu"
-#     - family-names: "He"
-#       given-names: "Shumeng"
-#   year: 2026
-#   publisher:
-#     name: "Zenodo"
-#   doi: 10.5281/zenodo.XXXXXXX
+
+doi: 10.5281/zenodo.22808609
+
+preferred-citation:
+  type: article
+  title: "Detecting Factual Contradictions in News Based on Large Language Models"
+  authors:
+    - family-names: "Jia"
+      given-names: "Ning"
+    - family-names: "Wei"
+      given-names: "Zifu"
+    - family-names: "He"
+      given-names: "Shumeng"
+  year: 2026
+  publisher:
+    name: "Zenodo"
+  doi: 10.5281/zenodo.22808609
