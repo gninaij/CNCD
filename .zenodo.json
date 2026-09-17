@@ -1,0 +1,41 @@
+{
+  "title": "CNCD: Code and Paper for Detecting Factual Contradictions in News Based on Large Language Models",
+  "upload_type": "software",
+  "license": "MIT",
+  "access_right": "open",
+  "version": "1.0.0",
+  "description": "<p>This repository accompanies the paper <i>Detecting Factual Contradictions in News Based on Large Language Models</i>. It contains:<br><br>1) The complete pipeline described in the paper: a lexical matching filter, candidate retrieval over Elasticsearch and Faiss using BGE embeddings, and three cascaded filters (ENT Filter, SIM Filter, LLM Filter) implemented with DeepSeek-V3.<br>2) The full text of the paper (see <code>paper/</code>).<br><br>The <b>dataset itself is not distributed here</b>. CNCD (Chinese News Contradiction Dataset) is archived at Science Data Bank under DOI 10.57760/sciencedb.36026 and is licensed CC BY-NC-SA 4.0. It contains 105,361 Chinese news articles collected from public news websites between March and May 2023 (mainly economics reporting), among which 1,957 are denial reports, 800 are denied reports, and 5,022 manually verified contradictory news pairs are provided. The code in this repository is released under the MIT License.</p>",
+  "creators": [
+    {
+      "name": "Jia, Ning",
+      "affiliation": "Hunan University of Information Technology"
+    },
+    {
+      "name": "Wei, Zifu",
+      "affiliation": "Hunan University of Information Technology"
+    },
+    {
+      "name": "He, Shumeng",
+      "affiliation": "Hunan University of Information Technology"
+    }
+  ],
+  "keywords": [
+    "fake news detection",
+    "fact extraction",
+    "large language model",
+    "natural language processing",
+    "fact-checking",
+    "Chinese NLP",
+    "contradiction detection",
+    "LLM-as-judge"
+  ],
+  "notes": "Funded by the High-Level Talent Program of Hunan University of Information Technology (Project No. GCCXM2025005).",
+  "related_identifiers": [
+    {
+      "scheme": "doi",
+      "identifier": "10.57760/sciencedb.36026",
+      "relation": "isSupplementTo",
+      "resource_type": "dataset"
+    }
+  ]
+}

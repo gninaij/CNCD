@@ -1,0 +1,56 @@
+cff-version: 1.2.0
+message: "If you use this software or dataset, please cite it using the metadata from this file."
+title: "CNCD: Detecting Factual Contradictions in News Based on Large Language Models"
+abstract: >-
+  Online news is abundant but its authenticity is often unverified. Prior work detects deliberately
+  fabricated content well, yet struggles with reports not intended as fabrications but later proved
+  false. This work detects factual contradictions by cross-validating reports describing the same
+  event, in two steps: identifying denial reports, and locating the corresponding denied reports.
+  We release CNCD (Chinese News Contradiction Dataset) with 1,957 denial reports, 800 denied reports
+  and 5,022 manually verified contradictory news pairs, drawn from 105,361 public Chinese news
+  articles from March to May 2023. Step 1 achieves a recall above 97%; Step 2 reaches an F1 of 62.99
+  with the LLM Filter alone at 170.99 hours, and the full filter cascade trades that down to F1 36.21
+  at 17.63 hours, giving an explicit accuracy-versus-compute frontier.
+type: software
+license: MIT
+repository-code: "https://github.com/gninaij/CNCD"
+keywords:
+  - fake news detection
+  - fact extraction
+  - large language model
+  - fact-checking
+  - contradiction detection
+  - Chinese NLP
+authors:
+  - family-names: "Jia"
+    given-names: "Ning"
+    affiliation: "Hunan University of Information Technology"
+  - family-names: "Wei"
+    given-names: "Zifu"
+    affiliation: "Hunan University of Information Technology"
+  - family-names: "He"
+    given-names: "Shumeng"
+    affiliation: "Hunan University of Information Technology"
+
+# ---------------------------------------------------------------------------
+# After Zenodo publishes your release, UNCOMMENT the two blocks below and fill
+# in the real DOI you received. Then commit again.
+# GitHub validates CITATION.cff - leaving a placeholder DOI may trigger a
+# warning, which is why these lines ship commented out.
+# ---------------------------------------------------------------------------
+# doi: 10.5281/zenodo.XXXXXXX
+#
+# preferred-citation:
+#   type: article
+#   title: "Detecting Factual Contradictions in News Based on Large Language Models"
+#   authors:
+#     - family-names: "Jia"
+#       given-names: "Ning"
+#     - family-names: "Wei"
+#       given-names: "Zifu"
+#     - family-names: "He"
+#       given-names: "Shumeng"
+#   year: 2026
+#   publisher:
+#     name: "Zenodo"
+#   doi: 10.5281/zenodo.XXXXXXX
