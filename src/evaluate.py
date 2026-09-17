@@ -39,10 +39,10 @@ def eva_task1(result_file):
         recall = 0
     print(f'recall:{recall}')
     if precision > 0 or recall > 0:
-    	f1 = 2 * precision * recall / (precision + recall)
+        f1 = 2 * precision * recall / (precision + recall)
     else:
         f1 = 0
-	print(f'f1-score:{f1}')
+    print(f'f1-score:{f1}')
 
 
 def eva_task2(result_file):
@@ -74,10 +74,10 @@ def eva_task2(result_file):
         recall = 0
     print(f'recall:{recall}')
     if precision > 0 or recall > 0:
-    	f1 = 2 * precision * recall / (precision + recall)
+        f1 = 2 * precision * recall / (precision + recall)
     else:
         f1 = 0
-	print(f'f1-score:{f1}')
+    print(f'f1-score:{f1}')
 
 
 if __name__ == '__main__':
@@ -88,9 +88,9 @@ if __name__ == '__main__':
 
     #  task2
     result_file = '../output/task2.pred_llm'
-	#  result_file = '../output/task2.pred_ent_sim_llm'
-	#  result_file = '../output/task2.pred_ent_llm'
-	#  result_file = '../output/task2.pred_sim_llm'
+    #  result_file = '../output/task2.pred_ent_sim_llm'
+    #  result_file = '../output/task2.pred_ent_llm'
+    #  result_file = '../output/task2.pred_sim_llm'
     print(f'task2 {result_file}')
     eva_task2(result_file)
 

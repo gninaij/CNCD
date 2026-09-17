@@ -66,7 +66,7 @@ class esWorker():
 
 def add_data2es_txt():
     es_worker = esWorker()
-    input_file = '../dataset/test/CNCD.jsonl'
+    input_file = '../dataset/CNCD.jsonl'
     datas = []
     with open(input_file, encoding='utf8') as fp:
         for line in fp:

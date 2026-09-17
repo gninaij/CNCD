@@ -89,8 +89,8 @@ class Worker():
 
 def run():
     p_tit = re.compile('\W')
-    news_file = f'../dataset/CNCD.jsonl'
-    out_file = f'../output/task1.pred'
+    news_file = '../dataset/CNCD.jsonl'
+    out_file = '../output/task1.pred'
     ofile = open(out_file, 'w', encoding='utf8')
 
     conf = {}

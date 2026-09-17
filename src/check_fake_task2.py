@@ -289,7 +289,6 @@ class Worker():
 
     def conflict(self, target_txt, old_txt):
         prompt = '请阅读以下两个文本并判断两个文本的主要内容是否存在冲突，以“是、否”做出回答。文本1：【%s】。文本2：【%s】。' % (target_txt, old_txt)
-        # print(prompt)
         logger.debug(f'confict: {prompt}')
         answer, used_token = self.llm.api(prompt)
         logger.debug(f'confict answer: {answer}')
@@ -301,15 +300,15 @@ class Worker():
 
 def run():
     p_tit = re.compile('\W')
-    task1_pos_file = f'../dataset/CNCD.jsonl.task1.positive'
+    task1_pos_file = f'../dataset/CNCD.task1.positive.jsonl'
     if USE_ENT_FILTER and USE_SIM_FILTER:
-        out_file = f'../output/CNCD.jsonl.task2.pred_ent_sim_llm'
+        out_file = f'../output/CNCD.task2.pred_ent_sim_llm'
     elif USE_ENT_FILTER and not USE_SIM_FILTER:
-        out_file = f'../output/CNCD.jsonl.task2.pred_ent_llm'
+        out_file = f'../output/CNCD.task2.pred_ent_llm'
     elif not USE_ENT_FILTER and USE_SIM_FILTER:
-        out_file = f'../output/CNCD.jsonl.task2.pred_sim_llm'
+        out_file = f'../output/CNCD.task2.pred_sim_llm'
     else:
-        out_file = f'../output/CNCD.jsonl.task2.pred_llm'
+        out_file = f'../output/CNCD.task2.pred_llm'
 
     conf = {}
     conf['data_path'] = '../model'

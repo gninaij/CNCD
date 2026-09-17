@@ -118,13 +118,13 @@ def test_search():
                 break
 
 
-def add_data2es_txt():
+def add_data2faiss_txt():
     conf = {}
     conf['db_file'] = '../model/index.pickle'
     conf['data_file'] = '../model/news.pickle'
     conf['emb_model'] = emb_model
     faiss_worker = faissWorker(conf)
-    input_file = '../dataset/test/CNCD.jsonl'
+    input_file = '../dataset/CNCD.jsonl'
     datas = []
     with open(input_file, encoding='utf8') as fp:
         for line in fp:
@@ -144,4 +144,4 @@ if __name__ == '__main__':
     emb_model = FlagAutoModel.from_finetuned(emb_model_path,
                                              query_instruction_for_retrieval="为这个句子生成表示以用于检索相关文章：",
                                              use_fp16=True)
-    add_data2es_txt()
+    add_data2faiss_txt()
