@@ -96,8 +96,8 @@ Download the three files from ScienceDB and place them under `dataset/`:
 | File                        | Content                                                     |
 | --------------------------- | ----------------------------------------------------------- |
 | `CNCD.jsonl`                | the news collection: id, title, body text, publication date |
-| `CNCD.jsonl.task1.positive` | denial reports with their labels                            |
-| `CNCD.jsonl.task2.CRP`      | contradictory news pairs, one news-ID pair per line         |
+| `CNCD.task1.positive.jsonl` | denial reports with their labels                            |
+| `CNCD.task2.CRP`            | contradictory news pairs, one news-ID pair per line         |
 
 | Statistic                  | Count     |
 | -------------------------- | ---------:|
